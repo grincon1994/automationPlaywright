@@ -7,7 +7,7 @@ test('Login successfuly', async({page}) =>{
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("test2@proton.com", "medtronic1");
-    await expect(page.locator('pull-right', {hasText: 'Logout'})).toBeVisible();
+    await expect(page.locator('.pull-right').getByText('Logout')).toBeVisible();
 })
 
 test('failed login', async({page}) => {
