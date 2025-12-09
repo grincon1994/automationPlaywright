@@ -7,6 +7,6 @@ test('Add items to cart', async({page}) =>{
     const searchItemsAndAddToCart = new SearchItemsAndAddToCartPage(page);
     await searchItemsAndAddToCart.goto();
     await searchItemsAndAddToCart.addItemsToCart();
-    await expect(page.locator('#cartModal').getByText('Added!')).toBeVisible();
-
+    await page.locator('.shop-menu .fa-shopping-cart').click();
+    await expect(page.locator('tbody tr')).toHaveCount(5);
 })

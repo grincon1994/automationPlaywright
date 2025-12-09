@@ -13,22 +13,18 @@ export class SearchItemsAndAddToCartPage{
 
 
     async addItemsToCart(){
-        const addToCartBtn = this.page.locator('.features_items').getByText('Add to cart');
+        
+        const featureItem = this.page.locator('.features_items .col-sm-4');
+        const itemOverlay = featureItem.locator('.product-overlay');
         const popupWhenAddingItemToCart = this.page.locator('#cartModal');
-        const continueShoppingBtn = popupWhenAddingItemToCart.locator('.close-modal');
+        const continueShoppingBtn = popupWhenAddingItemToCart.getByRole('button', {name: 'Continue Shopping'});
 
-        const count = await addToCartBtn.count();
-        const itemsToAdd = Math.min(count, 5);
+        for (let i=0; i < 5; i++){
 
-        for (let i=0; i < itemsToAdd; i++){
-            await addToCartBtn.nth(i).click();
-
-            await popupWhenAddingItemToCart.waitFor({state: 'visible'});
-
+            await featureItem.nth(i).hover();
+            await itemOverlay.nth(i).getByText('Add to cart').click();
+            await expect(popupWhenAddingItemToCart.getByText('Added!')).toBeVisible();
             await continueShoppingBtn.click();
-
-            await popupWhenAddingItemToCart.waitFor({state: 'hidden'});
-            
         }
     }
 }
