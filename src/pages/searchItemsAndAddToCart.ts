@@ -12,14 +12,14 @@ export class SearchItemsAndAddToCartPage{
     }
 
 
-    async addItemsToCart(){
-        
+    async addItemsToCart(numberOfItemsToAdd: number){
+
         const featureItem = this.page.locator('.features_items .col-sm-4');
         const itemOverlay = featureItem.locator('.product-overlay');
         const popupWhenAddingItemToCart = this.page.locator('#cartModal');
         const continueShoppingBtn = popupWhenAddingItemToCart.getByRole('button', {name: 'Continue Shopping'});
 
-        for (let i=0; i < 5; i++){
+        for (let i=0; i < numberOfItemsToAdd; i++){
 
             await featureItem.nth(i).hover();
             await itemOverlay.nth(i).getByText('Add to cart').click();
