@@ -27,4 +27,18 @@ export class SearchItemsAndAddToCartPage{
             await continueShoppingBtn.click();
         }
     }
+
+    async deleteItemsFromCart(){
+        await this.page.goto('https://automationexercise.com/view_cart');
+        const deleteButton = this.page.locator('tbody tr .cart_quantity_delete');
+
+        while (await deleteButton.count() > 0){
+
+            const countBeforeDelete = await deleteButton.count();
+
+            await deleteButton.first().click();
+
+            await this.page.waitForTimeout(500);
+        }
+    }
 }
